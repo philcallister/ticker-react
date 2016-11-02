@@ -1,0 +1,17 @@
+.ticker {
+  margin: 5px;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 300px;
+  background: #eeeeee;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+}
+h3 {
+  padding: 5px;
+  background-color: #b1d1de;
+}
+li {
+  padding: 2px 5px;
+}
