@@ -12,6 +12,7 @@
 .header {
   display:flex;
   justify-content: space-between;
+  box-shadow: 0 1px 1px 0 #888;
 }
 .header.noChange {
   background-color: #297ab5;
@@ -44,9 +45,11 @@ li {
   font-size: 13px;
 }
 li:first-of-type {
-  background-color: #fdf2cb;
+  border-bottom: 1px solid #ccc;
+  background-color: #e4edff;
 }
 ul {
-  border: 1px solid #888;
+  background-color: #ffffff;
+  border: 1px solid #aaa;
   margin: 5px;
 }
