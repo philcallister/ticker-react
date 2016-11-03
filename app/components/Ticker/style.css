@@ -4,6 +4,7 @@
   top: 0;
   height: 155px;
   width: 300px;
+  min-width: 300px;
   background: #eeeeee;
   overflow-y: scroll;
   border: 1px solid #ccc;
@@ -41,6 +42,9 @@ li {
   padding: 5px;
   color: #666;
   font-size: 13px;
+}
+li:first-of-type {
+  background-color: #fdf2cb;
 }
 ul {
   border: 1px solid #888;

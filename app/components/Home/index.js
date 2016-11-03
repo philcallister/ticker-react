@@ -15,6 +15,8 @@ export class Home extends React.Component {
         <Ticker socket={this.props.route.socket} symbol="TSLA" />
         <Ticker socket={this.props.route.socket} symbol="GOOG" />
         <Ticker socket={this.props.route.socket} symbol="AAPL" />
+        <Ticker socket={this.props.route.socket} symbol="TWTR" />
+        <Ticker socket={this.props.route.socket} symbol="VOO" />
       </div>
     )
   }
