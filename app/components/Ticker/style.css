@@ -2,16 +2,47 @@
   margin: 5px;
   left: 0;
   top: 0;
-  height: 100vh;
+  height: 155px;
   width: 300px;
   background: #eeeeee;
   overflow-y: scroll;
   border: 1px solid #ccc;
 }
+.header {
+  display:flex;
+  justify-content: space-between;
+}
+.header.noChange {
+  background-color: #297ab5;
+}
+.header.plusChange {
+  background-color: #3db529;
+}
+.header.minusChange {
+  background-color: #b52929;
+}
+.symbol {
+  display: inline-block;
+  color: #000;
+  background-color: #eee;
+}
+.value {
+  padding: 0 0 0 10px;
+  color: #fff;
+}
+.change {
+  margin: 5px;
+}
 h3 {
   padding: 5px;
-  background-color: #b1d1de;
+  color: #fff;
 }
 li {
-  padding: 2px 5px;
+  padding: 5px;
+  color: #666;
+  font-size: 13px;
+}
+ul {
+  border: 1px solid #888;
+  margin: 5px;
 }
