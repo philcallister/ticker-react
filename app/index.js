@@ -4,7 +4,7 @@ import ReactDOM from "react-dom"
 import { Router, Route, IndexRoute, hashHistory } from "react-router"
 
 import { default as Home } from "./components/Home"
-import { Socket } from "./phoenix/phoenix.js"
+import { Socket } from "./js/phoenix.js"
 
 let socket = new Socket("ws://localhost:4000/socket");
 socket.connect();

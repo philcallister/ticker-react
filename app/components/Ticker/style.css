@@ -2,8 +2,8 @@
   margin: 5px;
   left: 0;
   top: 0;
-  height: 155px;
-  width: 300px;
+  height: 450px;
+  width: 650px;
   min-width: 300px;
   background: #eeeeee;
   overflow-y: scroll;
@@ -42,7 +42,7 @@ h3 {
 li {
   padding: 5px;
   color: #666;
-  font-size: 13px;
+  font-size: 12px;
 }
 li:first-of-type {
   border-bottom: 1px solid #ccc;
