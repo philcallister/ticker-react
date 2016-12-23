@@ -32,16 +32,30 @@ class CandleStickChart extends React.Component {
     let that = this;
     this.channel = this.socket.channel(`frame:symbol:${this.symbol}:1`);
     this.channel.join();
+
+    // No frames loaded -- go get latest historical
+    if (!this.state.data.length) {
+      this.channel.push('all_frames', {symbol: this.symbol, interval: 1}).receive("ok", function(reply){
+        if (!!reply.frames.length) {
+          let elements = reply.frames.map(frame => that.frameToElement(frame));
+          that.setState({data: elements});
+        }
+      });
+    }
+
+    // Receive new frame
     this.channel.on('frame', function(frame){
-      let date = new Date(frame.open.lt_dts);
-      date.setSeconds(0,0);
-
+      let element = that.frameToElement(frame);
       let current_data = that.state.data;
-      let update_data = {date: date, open: +frame.open.l, high: +frame.high.l, low: +frame.low.l, close: +frame.close.l, volume: 0}
-
-      current_data.push(update_data);
+      current_data.push(element);
       that.setState({data: current_data});
     });
+  }
+
+  frameToElement(frame) {
+      let date = new Date(frame.open.lt_dts);
+      date.setSeconds(0,0);
+      return({date: date, open: +frame.open.l, high: +frame.high.l, low: +frame.low.l, close: +frame.close.l, volume: 0})
   }
 
   componentWillUnmount() {
