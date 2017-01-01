@@ -15,7 +15,7 @@ export class Ticker extends React.Component {
     this.symbol = props.symbol;
 
     let fakeTick = {l: "##", c: "##", cp: "##"};
-    this.state = {currentTick: fakeTick, ticks: [fakeTick]};
+    this.state = {currentInterval: 1, currentTick: fakeTick};
   }
 
   componentDidMount() {
@@ -23,10 +23,7 @@ export class Ticker extends React.Component {
     this.channel = this.socket.channel(`quote:symbol:${this.symbol}`);
     this.channel.join();
     this.channel.on('quote', function(tick){
-      tick.key = that.state.currentTick.key + 1;
-      let ticks = that.state.ticks;
-      ticks.push(tick);
-      that.setState({currentTick: tick, ticks: ticks})
+      that.setState({currentTick: tick})
     });
   }
 
@@ -47,9 +44,21 @@ export class Ticker extends React.Component {
             <span className={style.value}>({this.state.currentTick.cp}%)</span>
           </div>
         </div>
-        <CandleStickChart socket={this.socket} symbol={this.symbol} data={[]} type="hybrid" />
+        <CandleStickChart socket={this.socket} symbol={this.symbol} data={[]} type="hybrid" interval={this.state.currentInterval} />
+        <div className={style.interval}>
+          <button type="button" onClick={() => this.onClickInterval(1)}>1m</button>
+          <button type="button" onClick={() => this.onClickInterval(2)}>2m</button>
+          <button type="button" onClick={() => this.onClickInterval(5)}>5m</button>
+          <button type="button" onClick={() => this.onClickInterval(15)}>15m</button>
+          <button type="button" onClick={() => this.onClickInterval(30)}>30m</button>
+          <button type="button" onClick={() => this.onClickInterval(60)}>1h</button>
+        </div>
       </div>
     )
+  }
+
+  onClickInterval(interval) {
+    this.setState({currentInterval: interval});
   }
 
   headerClass() {

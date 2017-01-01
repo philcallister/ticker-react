@@ -25,17 +25,35 @@ class CandleStickChart extends React.Component {
     super(props);
     this.socket = props.socket;
     this.symbol = props.symbol;
-    this.state = {data: props.data}
+    this.state = {data: props.data, interval: props.interval};
   }
 
   componentDidMount() {
+    this.resetChannel(this.state.data, this.state.interval);
+  }
+
+  componentWillUnmount() {
+    this.channel.leave();
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.interval != this.state.interval) {
+      this.setState({data: [], interval: props.interval});
+      this.resetChannel(props.data, props.interval);
+    }
+  }
+
+  resetChannel(data, interval) {
+    if(this.channel) {
+      this.channel.leave();
+    }
     let that = this;
-    this.channel = this.socket.channel(`frame:symbol:${this.symbol}:1`);
+    this.channel = this.socket.channel(`frame:symbol:${this.symbol}:${interval}`);
     this.channel.join();
 
     // No frames loaded -- go get latest historical
-    if (!this.state.data.length) {
-      this.channel.push('all_frames', {symbol: this.symbol, interval: 1}).receive("ok", function(reply){
+    if (!data.length) {
+      this.channel.push('all_frames', {symbol: this.symbol, interval: interval}).receive("ok", function(reply){
         if (!!reply.frames.length) {
           let elements = reply.frames.map(frame => that.frameToElement(frame));
           that.setState({data: elements});
@@ -58,10 +76,6 @@ class CandleStickChart extends React.Component {
       return({date: date, open: +frame.open.l, high: +frame.high.l, low: +frame.low.l, close: +frame.close.l, volume: 0})
   }
 
-  componentWillUnmount() {
-    this.channel.leave();
-  }
-  
   render() {
     var { type, width, ratio } = this.props;
     var data = this.state.data;
@@ -83,6 +97,7 @@ class CandleStickChart extends React.Component {
 
     var [yAxisLabelX, yAxisLabelY] = [width - margin.left - 40, margin.top + (height - margin.top - margin.bottom) / 2]
     if (data.length > 1) {
+      let label = `${this.state.interval} minutes`;
       return (
         <ChartCanvas ratio={ratio} width={width} height={height}
             margin={margin} type={type}
@@ -108,7 +123,7 @@ class CandleStickChart extends React.Component {
                 displayFormat={format(".2f")} />
 
             <Label x={(width - margin.left - margin.right) / 2} y={height - 45}
-                fontSize="12" text="1 Minute" />
+                fontSize="12" text={label} />
 
             <YAxis axisAt="right" orient="right" ticks={5} />
 
@@ -127,8 +142,7 @@ class CandleStickChart extends React.Component {
 
           </Chart>
           <CrossHairCursor strokeDasharray="LongDashDot" />
-
-      </ChartCanvas>
+        </ChartCanvas>
       );
     }
     else {

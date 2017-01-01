@@ -53,3 +53,20 @@ ul {
   border: 1px solid #aaa;
   margin: 5px;
 }
+.interval {
+  display: flex;
+  justify-content: left;
+  margin-left: 78px;
+}
+.interval > button {
+  background-color: white;
+  border: 1px solid #999;
+  padding: 1px 10px 2px 10px;
+  margin-right: 5px;
+  width: 45px;
+}
+.interval > button:hover {
+  background-color: #1f77b4;
+  color: #fff;
+  cursor: pointer;
+}
