@@ -3,7 +3,7 @@
 **ticker-react** is an example React client which pulls stock quotes from the (defunct but still available) Google Finance API by using the [ticker-phoenix](https://github.com/philcallister/ticker-phoenix) Elixir Phoenix app. This React client app subsribes to Phoenix Channels with stock ticker symbols and is periodically notified of updates.
 
 To see the **ticker-react** app in action, head over to
-- [ticker-elixir](https://github.com/philcallister/ticker-elixr) Elixir OTP app
+- [ticker-elixir](https://github.com/philcallister/ticker-elixir) Elixir OTP app
 - [ticker-phonenix] (https://github.com/philcallister/ticker-phoenix) Elixir Phoenix app
 
 ##### Example screenshot of the three applications being used together
