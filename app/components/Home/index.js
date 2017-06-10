@@ -12,14 +12,10 @@ export class Home extends React.Component {
   render() {
     return (
       <div className={style.tickerColumns}>
-        <Ticker socket={this.props.route.socket} symbol="TSLA" />
-        <Ticker socket={this.props.route.socket} symbol="GOOG" />
-        <Ticker socket={this.props.route.socket} symbol="AAPL" />
-        <Ticker socket={this.props.route.socket} symbol="TWTR" />
-        <Ticker socket={this.props.route.socket} symbol="FB" />
-        <Ticker socket={this.props.route.socket} symbol="MMM" />
-        <Ticker socket={this.props.route.socket} symbol="VOO" />
-        <Ticker socket={this.props.route.socket} symbol="GLD" />
+        <Ticker socket={this.props.route.socket} symbol="P" />
+        <Ticker socket={this.props.route.socket} symbol="ZNGA" />
+        <Ticker socket={this.props.route.socket} symbol="VWO" />
+        <Ticker socket={this.props.route.socket} symbol="BAC" />
       </div>
     )
   }

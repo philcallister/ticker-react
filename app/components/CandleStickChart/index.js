@@ -71,9 +71,9 @@ class CandleStickChart extends React.Component {
   }
 
   frameToElement(frame) {
-      let date = new Date(frame.close.lt_dts);
+      let date = new Date(frame.close.lastReqTime);
       date.setSeconds(0,0);
-      return({date: date, open: +frame.open.l, high: +frame.high.l, low: +frame.low.l, close: +frame.close.l, volume: 0})
+      return({date: date, open: +frame.open.lastSalePrice, high: +frame.high.lastSalePrice, low: +frame.low.lastSalePrice, close: +frame.close.lastSalePrice, volume: 0})
   }
 
   render() {

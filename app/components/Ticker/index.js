@@ -14,7 +14,7 @@ export class Ticker extends React.Component {
     this.socket = props.socket;
     this.symbol = props.symbol;
 
-    let fakeTick = {l: "##", c: "##", cp: "##"};
+    let fakeTick = {lastSalePrice: "##"};
     this.state = {currentInterval: 1, currentTick: fakeTick};
   }
 
@@ -23,7 +23,8 @@ export class Ticker extends React.Component {
     this.channel = this.socket.channel(`quote:symbol:${this.symbol}`);
     this.channel.join();
     this.channel.on('quote', function(tick){
-      that.setState({currentTick: tick})
+      that.setState({currentTick: tick});
+      console.log(tick);
     });
   }
 
@@ -37,11 +38,11 @@ export class Ticker extends React.Component {
         <div className={this.headerClass()}>
           <div>
             <h3 className={style.symbol}>{this.symbol}</h3>
-            <span className={style.value}>{this.state.currentTick.l}</span>
+            <span className={style.value}>{this.state.currentTick.lastSalePrice}</span>
           </div>
           <div className={style.change}>
-            <span className={style.value}>{this.state.currentTick.c}</span>
-            <span className={style.value}>({this.state.currentTick.cp}%)</span>
+            <span className={style.value}>+/-</span>
+            <span className={style.value}>(%)</span>
           </div>
         </div>
         <CandleStickChart socket={this.socket} symbol={this.symbol} data={[]} type="hybrid" interval={this.state.currentInterval} />
@@ -73,7 +74,7 @@ export class Ticker extends React.Component {
 
   detectChange() {
     let tick = this.state.currentTick;
-    let tickChange = tick.c.charAt(0);
+    let tickChange = tick.lastSalePrice;
     return (tickChange == '-' || tickChange == '+') ? tickChange : null
   }
 
